@@ -30,7 +30,7 @@ class PostsController extends Controller
      */
     public function show(string $id)
     {
-        $post = Posts::find($id);
+        $post = Posts::with(['c'])->find($id);
 
         if (!$post) {
             return response()->json(['message' => 'Bài viết không tồn tại'], 404);

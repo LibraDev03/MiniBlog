@@ -26,7 +26,9 @@ class Comment extends Model
      */
     public function replies()
     {
-        return $this->hasMany(Comment::class, 'parent_id')->with('replies');
+        return $this->hasMany(Comment::class, 'parent_id')
+        ->with('user') // Lấy thông tin user của replies
+        ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
     }
 
     /**

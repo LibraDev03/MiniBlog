@@ -17,9 +17,12 @@ class Posts extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function C()
+    public function c()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class, 'post_id')
+                    ->whereNull('parent_id') // Chỉ lấy bình luận gốc
+                    ->with(['replies.user', 'user']) // Lấy replies và thông tin user
+                    ->orderBy('created_at', 'asc'); // Sắp xếp theo thời gian
     }
 
 }
